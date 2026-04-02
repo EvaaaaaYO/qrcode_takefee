@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+   
+    .love {
+        margin: 0 auto;
+        width: 500px;
+        text-align: center;
+    }
+
+    .bar {
+        padding: 4px;
+
+        margin-left: 13px;
+        border: none;
+        text-align: center;
+        
+    }
+
+    .abar {
+        background-color: azure;
+    }
+
+    .bbar {
+        background-color: rgb(214, 218, 218);
+    }
+
+    #tt {
+        margin: 3px;
+        border-radius: 15px;
+        background-color:cadetblue;
+        color: aliceblue;
+    }
+
+    /* #inputs{display: flex;} */
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抽成計算</title>
+</head>
+
+<body>
+    <div class="love">
+        <div id="tt">
+            <h1>合計為：<span id="ans"></span></h1>
+        </div>
+        請輸入金額，會將其乘以0.025後計算
+        <br>
+        不是0.025：<input type="number" value="0.025" id="fee">
+        <br>
+        <input type="button" value="開算" onclick="count()"
+            style="font-size: 20px;margin: 13px;border-radius: 15px;padding: 0 60px;
+            border-color: cadetblue;color: cadetblue;">
+
+        <form name="keynum" target="_self">
+            <div id="inputs"></div>
+            <!-- <input type="submit" style="margin-top:10px;"> -->
+            <br>
+        </form>
+    </div>
+</body>
+<script>
+    // 
+    let container = document.getElementById("inputs");
+
+    for (let i = 1; i <= 21; i++) {
+        let input = document.createElement("input");
+        input.type = "number";
+        input.value = 0;
+        input.id = "n" + i;
+        input.classList.add("bar");
+        input.classList.add(i % 2 === 0 ? "abar" : "bbar");
+
+
+        container.append(i + ".");
+        container.append(input);
+        container.append(document.createElement("br"));
+        if (i == 9) {
+            container.append(document.createElement("br"));
+        }
+    }
+    // 
+    function fee(x) {
+        // let num=document.getElementById(x);
+        let num = Number(document.getElementById(x).value);
+        let getfee = Number(document.getElementById("fee").value);
+        if (num != 0) {
+            num = num * getfee;
+            let y = Math.round(num);
+            if (y === 0) {
+                y = num > 0 ? 1 : -1;
+            }
+
+
+            return y;
+        } else { return 0; }
+
+    }
+    function count() {
+        let total = 0;
+        for (i = 1; i < 22; i++) {
+            let j = "n" + i.toString();
+            total += fee(j);
+        }
+        document.getElementById("ans").innerHTML = total;
+    }
+
+</script>
+
+</html>
